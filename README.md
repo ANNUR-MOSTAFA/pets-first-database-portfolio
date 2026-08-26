@@ -14,9 +14,13 @@ The project covers the database lifecycle from relational schema design and data
 
 ---
 
-## Project Scope
+## Database Architecture
 
-The database was designed to support a multi-clinic veterinary practice with:
+![Database Architecture](images/database_architecture.png)
+
+The database was designed around the core entities and relationships required by a multi-clinic veterinary practice.
+
+The relational model supports:
 
 - Multiple veterinary clinics
 - Veterinarians, including roving specialists
@@ -24,10 +28,9 @@ The database was designed to support a multi-clinic veterinary practice with:
 - Veterinary visits and follow-up visit chains
 - Drug prescriptions
 - Veterinary services and billing
-- Booking and cancellation workflows
-- Multiple payment methods
-- Business-rule enforcement
-- Relational-to-NoSQL data migration
+- Payments and payment methods
+
+The design uses primary keys, foreign keys, constraints, and relationships to maintain data integrity.
 
 ---
 
@@ -44,7 +47,7 @@ Designed and implemented relational database components using **Oracle SQL**, in
 - Data population
 - Test data covering different clinic, vet, animal, visit, service, and prescription scenarios
 
-The design was implemented to maintain data consistency across related entities.
+The design was implemented to maintain consistency across related entities.
 
 ### Transaction-Safe Operations
 
@@ -67,17 +70,17 @@ This provided practical experience with evolving a database after its initial im
 
 ## PL/SQL Business Logic
 
-PL/SQL was used to move important business rules into the database layer.
+PL/SQL was used to implement important business rules directly within the database layer.
 
 ### Service Charge Validation
 
-Implemented a database trigger that automatically rejects service charges outside **±10% of the standard service cost**.
+A database trigger was implemented to automatically reject service charges outside **±10% of the standard service cost**.
 
 This ensures that the business rule is enforced consistently at the database level.
 
 ### Follow-up Visit Procedure
 
-Implemented a stored procedure, `prc_followup_visit`, to handle follow-up visit bookings.
+A stored procedure, `prc_followup_visit`, was implemented to handle follow-up visit bookings.
 
 The procedure includes:
 
@@ -86,7 +89,11 @@ The procedure includes:
 - Business-rule checks
 - Success and failure test cases
 
-This demonstrates how procedural database logic can enforce business requirements independently of an application layer.
+### Business Logic Workflow
+
+![PL/SQL Business Logic](images/plsql_business_logic.png)
+
+The trigger and stored procedure demonstrate how database-level logic can enforce business requirements independently of an application layer.
 
 ---
 
@@ -103,7 +110,11 @@ Selected clinic information was represented as JSON documents containing:
 
 The resulting documents were loaded into **MongoDB**, where queries and updates were performed on the collection.
 
-This demonstrated the differences between relational modelling and document-oriented data modelling.
+### Relational → MongoDB
+
+![Relational to MongoDB](images/relational_to_mongodb.png)
+
+This demonstrated the differences between relational modelling and document-oriented data modelling, including how related information can be represented within a single MongoDB document.
 
 ---
 
@@ -141,7 +152,9 @@ This project provided practical experience across the full database development 
 
 **schema design → data population → transactions → business logic → schema evolution → NoSQL migration**
 
-A key lesson was the importance of making early database design decisions with future changes in mind. The project also demonstrated how database-level triggers and stored procedures can enforce business rules directly within the data layer rather than relying entirely on application code.
+A key lesson was the importance of making early database design decisions with future changes in mind.
+
+The project also demonstrated how database-level triggers and stored procedures can enforce business rules directly within the data layer rather than relying entirely on application code.
 
 ---
 
@@ -152,4 +165,6 @@ pets-first-database/
 │
 ├── README.md
 └── images/
-    └── ...
+    ├── database_architecture.png
+    ├── relational_to_mongodb.png
+    └── plsql_business_logic.png
