@@ -1,4 +1,4 @@
-# Pets First — Relational Database Design & Implementation
+# Pets First — Relational Database Implementation & NoSQL Integration
 
 A database engineering project for a multi-clinic veterinary practice, implemented using Oracle SQL, PL/SQL, and MongoDB.
 
@@ -38,7 +38,7 @@ The design uses primary keys, foreign keys, constraints, and relationships to ma
 
 ### Relational Database Design
 
-Designed and implemented relational database components using **Oracle SQL**, including:
+Implemented and extended a relational veterinary database system using Oracle SQL, covering visits, services, drugs, animals, vets, and clinics, including:
 
 - Table definitions
 - Primary and foreign key constraints
